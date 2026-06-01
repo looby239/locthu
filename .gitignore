@@ -1,0 +1,4 @@
+# Ignore original heavy photos to keep git repository small
+assets/galery_ *
+assets/bride.jpg
+assets/groom.JPG
