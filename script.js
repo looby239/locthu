@@ -423,7 +423,8 @@ document.addEventListener("DOMContentLoaded", () => {
         
         fetch(GOOGLE_SHEET_URL, {
           method: "POST",
-          mode: "no-cors",
+          mode: "cors",
+          credentials: "omit",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
           },
@@ -511,7 +512,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     try {
-      const response = await fetch(GOOGLE_SHEET_URL);
+      const response = await fetch(GOOGLE_SHEET_URL, {
+        method: "GET",
+        mode: "cors",
+        credentials: "omit"
+      });
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
         // Lưu ý: data trả về từ doGet đã được sắp xếp mới nhất lên đầu trong Apps Script
@@ -571,7 +576,8 @@ document.addEventListener("DOMContentLoaded", () => {
         
         fetch(GOOGLE_SHEET_URL, {
           method: "POST",
-          mode: "no-cors",
+          mode: "cors",
+          credentials: "omit",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
           },
