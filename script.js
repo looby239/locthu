@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="wish-item">
           <div class="wish-header">
             <span class="wish-author">${escapeHTML(w.author)}</span>
-            <span class="wish-date">${w.date || ''}</span>
+            <span class="wish-date">${formatDateString(w.date)}</span>
           </div>
           <p class="wish-content">${escapeHTML(w.message)}</p>
         </div>
@@ -603,6 +603,29 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function formatDateString(dateVal) {
+    if (!dateVal) return "";
+    // Nếu đã ở định dạng dd/mm/yyyy thì giữ nguyên
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateVal)) {
+      return dateVal;
+    }
+    try {
+      const d = new Date(dateVal);
+      if (isNaN(d.getTime())) {
+        return dateVal;
+      }
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const min = String(d.getMinutes()).padStart(2, "0");
+      const ss = String(d.getSeconds()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+    } catch (e) {
+      return dateVal;
+    }
   }
 
   // Tải danh sách lời chúc ban đầu
