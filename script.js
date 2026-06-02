@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
     ];
     
-    const colors = ["#d4a574", "#e8c9a0", "#846758", "#c9a87c", "#4a2816"];
+    const colors = ["#bfa27a", "#e4d1b9", "#55755e", "#7ca687", "#2d4a36"];
     const leafCount = 20;
     
     for (let i = 0; i < leafCount; i++) {

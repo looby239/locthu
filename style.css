@@ -3,20 +3,20 @@
 
 /* CSS Variables */
 :root {
-  --color-dark-gradient-start: #3d2112;
-  --color-dark-gradient-mid: #2e180d;
-  --color-dark-gradient-end: #1f1008;
+  --color-dark-gradient-start: #243629;
+  --color-dark-gradient-mid: #1b281f;
+  --color-dark-gradient-end: #121a15;
   
-  --color-cream: #fffaf7;
-  --color-cream-darker: #f9f3ee;
-  --color-primary: #4a2816;
-  --color-secondary: #846758;
-  --color-gold: #d4a574;
-  --color-light-gold: #e8c9a0;
+  --color-cream: #f3f7f4;
+  --color-cream-darker: #e7efe9;
+  --color-primary: #2d4a36;
+  --color-secondary: #55755e;
+  --color-gold: #bfa27a;
+  --color-light-gold: #e4d1b9;
   
-  --color-text-dark: #2c1a0e;
-  --color-text-muted: rgba(74, 40, 22, 0.7);
-  --color-divider: rgba(132, 103, 88, 0.15);
+  --color-text-dark: #1b2b20;
+  --color-text-muted: rgba(45, 74, 54, 0.7);
+  --color-divider: rgba(85, 117, 94, 0.15);
   
   --font-script: 'Great Vibes', 'Pattaya', cursive;
   --font-title: 'Lora', serif;
@@ -189,12 +189,12 @@ button, input, textarea {
   transform: translate(-50%, -50%);
   width: 60px;
   height: 60px;
-  background: radial-gradient(circle at 30% 30%, #4a2816, #2c0a00);
+  background: radial-gradient(circle at 30% 30%, var(--color-primary), var(--color-dark-gradient-end));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(74, 40, 22, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(45, 74, 54, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
   z-index: 20;
   animation: seal-pulse 2s infinite ease-in-out;
 }
@@ -208,11 +208,11 @@ button, input, textarea {
 @keyframes seal-pulse {
   0%, 100% {
     transform: translate(-50%, -50%) scale(1);
-    box-shadow: 0 4px 20px rgba(74, 40, 22, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(45, 74, 54, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
   }
   50% {
     transform: translate(-50%, -50%) scale(1.06);
-    box-shadow: 0 4px 30px rgba(74, 40, 22, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(45, 74, 54, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -323,7 +323,7 @@ button, input, textarea {
   font-weight: 600;
   border-radius: 30px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(74, 40, 22, 0.3);
+  box-shadow: 0 4px 15px rgba(45, 74, 54, 0.3);
   transition: var(--transition-smooth);
   overflow: hidden;
   display: inline-flex;
@@ -333,8 +333,8 @@ button, input, textarea {
 
 .btn-premium:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 40, 22, 0.45);
-  background-color: #3b2012;
+  box-shadow: 0 6px 20px rgba(45, 74, 54, 0.45);
+  background-color: #233a2a;
 }
 
 .btn-premium:active {
@@ -689,7 +689,7 @@ button, input, textarea {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: rgba(74, 40, 22, 0.05);
+  background-color: rgba(45, 74, 54, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -929,8 +929,8 @@ button, input, textarea {
 
 .timeline-content:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(74, 40, 22, 0.08);
-  border-color: rgba(74, 40, 22, 0.15);
+  box-shadow: 0 6px 20px rgba(45, 74, 54, 0.08);
+  border-color: rgba(45, 74, 54, 0.15);
 }
 
 .timeline-time {
@@ -984,7 +984,7 @@ button, input, textarea {
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(74, 40, 22, 0.4);
+  background-color: rgba(45, 74, 54, 0.4);
   opacity: 0;
   display: flex;
   align-items: center;
@@ -1070,7 +1070,7 @@ button, input, textarea {
 .form-control:focus {
   border-color: var(--color-primary);
   background-color: var(--color-cream);
-  box-shadow: 0 0 0 3px rgba(74, 40, 22, 0.08);
+  box-shadow: 0 0 0 3px rgba(45, 74, 54, 0.08);
 }
 
 .form-row {
@@ -1246,14 +1246,14 @@ button, input, textarea {
 
 .gift-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(74, 40, 22, 0.1);
-  border-color: rgba(74, 40, 22, 0.15);
+  box-shadow: 0 12px 30px rgba(45, 74, 54, 0.1);
+  border-color: rgba(45, 74, 54, 0.15);
 }
 
 .gift-icon {
   width: 50px;
   height: 50px;
-  background-color: rgba(74, 40, 22, 0.05);
+  background-color: rgba(45, 74, 54, 0.05);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1352,7 +1352,7 @@ button, input, textarea {
 
 .float-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(74, 40, 22, 0.25);
+  box-shadow: 0 6px 20px rgba(45, 74, 54, 0.25);
   border-color: var(--color-primary);
 }
 
@@ -1381,7 +1381,7 @@ button, input, textarea {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(31, 16, 8, 0.8);
+  background-color: rgba(18, 26, 21, 0.8);
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -1419,7 +1419,7 @@ button, input, textarea {
   right: 15px;
   width: 32px;
   height: 32px;
-  background-color: rgba(74, 40, 22, 0.05);
+  background-color: rgba(45, 74, 54, 0.05);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1513,7 +1513,7 @@ button, input, textarea {
 
 /* Lightbox Modal Content */
 .lightbox-overlay {
-  background-color: rgba(10, 5, 2, 0.95);
+  background-color: rgba(9, 13, 11, 0.95);
 }
 
 .lightbox-container {
@@ -1585,7 +1585,7 @@ button, input, textarea {
 .toast {
   pointer-events: auto;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(74, 40, 22, 0.15);
+  border: 1px solid rgba(45, 74, 54, 0.15);
   backdrop-filter: blur(15px);
   border-radius: 12px;
   padding: 12px 20px;
