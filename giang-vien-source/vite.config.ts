@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/locthu/Giang-vien/',
+    base: '/giang-vien/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
