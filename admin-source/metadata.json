@@ -1,0 +1,6 @@
+{
+  "name": "DMRS System",
+  "description": "Hệ thống quản lý dữ liệu tài liệu và thành viên DMRS",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
