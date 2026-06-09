@@ -1,0 +1,6 @@
+{
+  "name": "DMRS - Hệ thống quản lý dữ liệu",
+  "description": "Hệ thống quản lý dữ liệu giảng dạy và tra cứu tài liệu học tập thông minh (DMRS).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

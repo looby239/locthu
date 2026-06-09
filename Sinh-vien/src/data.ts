@@ -1,0 +1,213 @@
+import { AcademicDoc, SavedAnswer, UserProfile } from './types';
+
+export const INITIAL_PROFILE: UserProfile = {
+  name: 'Nguyễn Văn A',
+  mssv: '2021601234',
+  className: 'KTPM01 - K16',
+  department: 'Khoa học Máy tính',
+  email: 'anv.2021601234@student.edu.vn',
+  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop',
+};
+
+export const DEFAULT_SAVED_ANSWERS: SavedAnswer[] = [
+  {
+    id: 'ans_1',
+    title: 'Quy định về việc hoãn thi học kỳ?',
+    category: 'Academic',
+    date: '24/10/2023',
+    content: 'Sinh viên được phép hoãn thi trong trường hợp gặp vấn đề sức khỏe đột xuất (ốm đau, tai nạn) có giấy xác nhận điều trị của bệnh viện cấp Quận/Huyện trở lên, hoặc lý do bất khả kháng được duyệt trực tiếp bởi Ban Giám Hiệu. Đơn xin hoãn thi phải nộp trong vòng 3 ngày làm việc kể từ ngày thi.',
+  },
+  {
+    id: 'ans_2',
+    title: 'Cách cấu hình VPN để truy cập thư viện số từ xa',
+    category: 'Technical',
+    date: '22/10/2023',
+    content: 'Để kết nối mạng thư viện nội bộ từ ngoài trường, bạn cần tải ứng dụng OpenVPN Client, tiếp theo tải chứng chỉ cấu hình cá nhân (.ovpn) từ cổng IT của trường (it.vnu.edu.vn). Nhập file cấu hình, điền tài khoản thư viện và kích hoạt kết nối trước khi khởi động cổng tài liệu số.',
+  },
+  {
+    id: 'ans_3',
+    title: 'Điều kiện xét học bổng khuyến khích học tập',
+    category: 'Policy',
+    date: '15/10/2023',
+    content: 'Điều kiện xét tuyển học bổng bao gồm: Điểm trung bình chung học kỳ (GPA) đạt tối thiểu từ 3.20/4.00 trở lên, không có học phần nào dưới điểm C, số tín chỉ tích lũy đạt tối thiểu 14 tín chỉ trong kỳ chính. Đồng thời, điểm rèn luyện trong kỳ phải đạt loại Tốt trở lên (≥ 80 điểm).',
+  },
+  {
+    id: 'ans_4',
+    title: 'Hướng dẫn đăng ký môn học trực tuyến kỳ 2',
+    category: 'Academic',
+    date: '10/10/2023',
+    content: 'Hệ thống DMRS sẽ tiếp nhận đăng ký tín chỉ tự động từ 08:00 ngày 15/11. Khuyến nghị sinh viên xây dựng danh sách thời khóa biểu cá nhân trước 2 tuần. Thực hiện thao tác lọc học phần, nhấn "Lưu tạm" và ấn "Gửi đăng ký chính thức" khi cổng mở để có độ ưu tiên lớp học tốt nhất.',
+  },
+];
+
+export const INITIAL_DOCUMENTS: AcademicDoc[] = [
+  // CNTT
+  {
+    id: 'doc_1',
+    title: 'Giáo trình Cấu trúc dữ liệu và Giải thuật',
+    author: 'TS. Nguyễn Thành Nam',
+    date: '12/03/2024',
+    type: 'PDF',
+    views: 1240,
+    category: 'cntt',
+    size: '14.2 MB',
+    recent: true,
+  },
+  {
+    id: 'doc_2',
+    title: 'Bài tập thực hành Hệ quản trị CSDL',
+    author: 'Khoa CNTT - ĐH Quốc Gia',
+    date: '10/03/2024',
+    type: 'DOCX',
+    views: 950,
+    category: 'cntt',
+    size: '3.1 MB',
+    recent: true,
+  },
+  {
+    id: 'doc_3',
+    title: 'Slide bài giảng: Lập trình Mobile (React Native)',
+    author: 'ThS. Lê Quang Bình',
+    date: '08/03/2024',
+    type: 'SLIDE',
+    views: 890,
+    category: 'cntt',
+    size: '8.4 MB',
+    recent: true,
+  },
+  {
+    id: 'doc_4',
+    title: 'Giáo trình An toàn bảo mật thông tin',
+    author: 'PGS. Trần Văn Chung',
+    date: '05/03/2024',
+    type: 'PDF',
+    views: 1100,
+    category: 'cntt',
+    size: '18.9 MB',
+    recent: true,
+  },
+  {
+    id: 'doc_5',
+    title: 'Học máy ứng dụng trong phân tích dữ liệu',
+    author: 'TS. Vũ Hải Quân',
+    date: '28/02/2024',
+    type: 'PDF',
+    views: 2150,
+    category: 'cntt',
+    size: '16.5 MB',
+  },
+  // Kinh tế & Quản trị
+  {
+    id: 'doc_6',
+    title: 'Chiến lược Marketing 4.0 trong kỷ nguyên số',
+    author: 'PGS. TS. Lê Thế Giới',
+    date: '11/02/2024',
+    type: 'PDF',
+    views: 1420,
+    category: 'kinhte',
+    size: '12.1 MB',
+  },
+  {
+    id: 'doc_7',
+    title: 'Quản trị chuỗi cung ứng toàn cầu',
+    author: 'ThS. Đỗ Xuân Tiến',
+    date: '03/01/2024',
+    type: 'PDF',
+    views: 1380,
+    category: 'kinhte',
+    size: '9.8 MB',
+  },
+  // Ngôn ngữ & Văn hóa
+  {
+    id: 'doc_8',
+    title: 'Lý thuyết Biên dịch nâng cao',
+    author: 'GS. Nguyễn Quốc Hùng',
+    date: '15/12/2023',
+    type: 'PDF',
+    views: 980,
+    category: 'ngonngu',
+    size: '6.2 MB',
+  },
+  {
+    id: 'doc_9',
+    title: 'Văn hóa các nước ASEAN',
+    author: 'Viện Nghiên Cứu Đông Nam Á',
+    date: '20/11/2023',
+    type: 'PDF',
+    views: 750,
+    category: 'ngonngu',
+    size: '11.4 MB',
+  },
+  // Thiết kế Đồ họa
+  {
+    id: 'doc_10',
+    title: 'Nguyên lý thị giác trong Design',
+    author: 'ThS. Trịnh Minh Thắng',
+    date: '05/11/2023',
+    type: 'SLIDE',
+    views: 1650,
+    category: 'thietke',
+    size: '22.1 MB',
+  },
+  {
+    id: 'doc_11',
+    title: 'Nghiên cứu hành vi người dùng UI/UX',
+    author: 'TS. Đinh Bá Tiến',
+    date: '14/10/2023',
+    type: 'PDF',
+    views: 1820,
+    category: 'thietke',
+    size: '15.4 MB',
+  },
+];
+
+export const RECENT_UPLOADED: AcademicDoc[] = [
+  {
+    id: 'rec_1',
+    title: 'Báo cáo Xu hướng AI 2024',
+    author: 'Bộ phận Nghiên cứu AI',
+    date: 'Hôm qua, 14:30',
+    type: 'PDF',
+    views: 310,
+    category: 'cntt',
+    size: '2.4 MB',
+  },
+  {
+    id: 'rec_2',
+    title: 'Phân tích Báo cáo Tài chính Q1',
+    author: 'Khoa Tài chính - Ngân hàng',
+    date: '12/05/2024',
+    type: 'XLSX',
+    views: 180,
+    category: 'kinhte',
+    size: '1.2 MB',
+  },
+  {
+    id: 'rec_3',
+    title: 'Từ điển Anh-Việt chuyên ngành Luật',
+    author: 'Khoa Ngoại ngữ Pháp lý',
+    date: '10/05/2024',
+    type: 'PDF',
+    views: 450,
+    category: 'ngonngu',
+    size: '35.1 MB',
+  },
+];
+
+export const POPULAR_FAQS = [
+  {
+    id: 'faq_1',
+    question: 'Cách tính điểm trung bình tích lũy?',
+    reply: 'Điểm trung bình tích lũy GPA được tính là tổng điểm học phần nhân số tín chỉ tương ứng của học phần đó, chia cho tổng số tín chỉ tích lũy. Thang điểm chính thức là thang 4.0.',
+  },
+  {
+    id: 'faq_2',
+    question: 'Thủ tục xin cấp lại thẻ sinh viên?',
+    reply: 'Chào bạn! Để xin cấp lại thẻ sinh viên, bạn vui lòng tải mẫu đơn đăng ký trên DMRS, điền đầy đủ thông tin cá nhân và nộp tại phòng Công tác Sinh viên cùng 1 ảnh 3x4. Lệ phí cấp lại thẻ là 50.000 VNĐ.',
+  },
+  {
+    id: 'faq_3',
+    question: 'Quy định về chuẩn đầu ra ngoại ngữ?',
+    reply: 'Sinh viên CNTT DMRS cần đạt trình độ tiếng Anh tối thiểu tương đương bậc 3/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam (với chứng chỉ IELTS từ 5.0 trở lên hoặc chứng chỉ VSTEP từ bậc B1).',
+  },
+];

@@ -1,0 +1,6 @@
+{
+  "name": "DMRS System",
+  "description": "Hệ thống quản lý dữ liệu tối ưu DMRS System tích hợp Chat AI, Phân loại tài liệu, Kho học liệu và Cài đặt cá nhân",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
