@@ -312,6 +312,10 @@ button, input, textarea {
   margin-bottom: 30px;
 }
 
+.envelope-guest[hidden] {
+  display: none;
+}
+
 /* Button Stylings */
 .btn-premium {
   position: relative;
@@ -746,6 +750,11 @@ button, input, textarea {
   gap: 12px;
   width: 100%;
   justify-content: center;
+}
+
+/* Keep actions hidden for the ceremony; the party card has its own actions. */
+.events-grid .event-card:first-child .event-buttons {
+  display: none;
 }
 
 .btn-secondary {

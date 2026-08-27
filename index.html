@@ -30,8 +30,8 @@
     "@context": "https://schema.org",
     "@type": "Event",
     "name": "Lễ Thành Hôn & Tiệc Cưới: Thành Lộc & Minh Thư",
-    "startDate": "2027-04-30T09:00:00+07:00",
-    "endDate": "2027-04-30T21:00:00+07:00",
+    "startDate": "2026-12-20T09:00:00+07:00",
+    "endDate": "2026-12-20T21:00:00+07:00",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
@@ -81,8 +81,15 @@
           <div class="line"></div>
         </div>
         
-        <div class="envelope-date">30 tháng 4, 2027</div>
+        <div class="envelope-date">20 tháng 12, 2026</div>
         
+        <div id="envelope-guest" class="envelope-guest">
+          <div class="envelope-invite-label">Kính mời</div>
+          <div id="envelope-guest-box" class="envelope-guest-box" hidden>
+            <span id="envelope-guest-name" class="envelope-guest-name"></span>
+          </div>
+        </div>
+
         <button id="btn-open-text" class="btn-premium">
           Mở thiệp
           <div class="btn-shine"></div>
@@ -120,7 +127,7 @@
           <span class="dot" style="color: var(--color-light-gold)">❦</span>
           <div class="line" style="background: rgba(255,255,255,0.4)"></div>
         </div>
-        <p class="hero-date">30.04.2027</p>
+        <p class="hero-date">20.12.2026</p>
         <div class="hero-scroll-btn" id="hero-scroll-btn">
           <svg viewBox="0 0 24 24">
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
@@ -214,7 +221,7 @@
             <h3>Lễ Thành Hôn</h3>
             <ul class="event-detail-list">
               <li class="event-detail-item time-highlight">09:00</li>
-              <li class="event-detail-item">Thứ Sáu, ngày 30 tháng 4, 2027</li>
+              <li class="event-detail-item">Chủ Nhật, ngày 20 tháng 12, 2026</li>
               <li class="event-detail-item venue-name">Được tổ chức tại Tư Gia</li>
               <li class="event-detail-item address-detail">Nhà trai: 60, ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh</li>
             </ul>
@@ -239,13 +246,13 @@
             </div>
             <h3>Tiệc Cưới</h3>
             <ul class="event-detail-list">
-              <li class="event-detail-item time-highlight">17:30</li>
-              <li class="event-detail-item">Thứ Sáu, ngày 30 tháng 4, 2027</li>
-              <li class="event-detail-item venue-name">White Palace Convention Center</li>
-              <li class="event-detail-item address-detail">Sảnh cưới tầng 2, 194 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP. Hồ Chí Minh</li>
+              <li id="party-event-time" class="event-detail-item time-highlight">13:00</li>
+              <li class="event-detail-item">Chủ Nhật, ngày 20 tháng 12, 2026</li>
+              <li class="event-detail-item lunar-date">Nhằm ngày 12 tháng 11 âm lịch</li>
+              <li class="event-detail-item venue-name">Tại tư gia: 60 ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh</li>
             </ul>
             <div class="event-buttons">
-              <a href="https://maps.google.com/?q=White+Palace+194+Hoang+Van+Thu+Phu+Nhuan" target="_blank" class="btn-secondary">
+              <a href="https://www.google.com/maps/search/10.578800,+106.585331?entry=tts&amp;g_ep=EgoyMDI2MDUyNy4wIPu8ASoASAFQAw%3D%3D&amp;skid=2f5f9450-b558-4316-a873-ad7909be269d" target="_blank" class="btn-secondary">
                 <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                 Bản đồ
               </a>
@@ -432,8 +439,8 @@
               <div class="form-group">
                 <label for="rsvp-attendance">Bạn sẽ tham dự chứ? *</label>
                 <select id="rsvp-attendance" class="form-control" required>
-                  <option value="" disabled selected>Vui lòng chọn...</option>
-                  <option value="yes">Tôi sẽ đến dự</option>
+                  <option value="" disabled>Vui lòng chọn...</option>
+                  <option value="yes" selected>Tôi sẽ đến dự</option>
                   <option value="maybe">Có thể (Sẽ xác nhận sau)</option>
                   <option value="no">Rất tiếc, tôi không thể đến</option>
                 </select>

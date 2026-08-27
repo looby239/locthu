@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
+
   // ----------------------------------------------------
   // 1. STATE VARIABLES & CONFIG
   // ----------------------------------------------------
-  const weddingDate = new Date("2027-04-30T09:00:00+07:00").getTime();
-  
+  const weddingDate = new Date("2026-12-20T09:00:00+07:00").getTime();
+
   // Gallery images list for lightbox
   const galleryImages = [
     "assets/gallery_1.webp",
@@ -17,9 +17,34 @@ document.addEventListener("DOMContentLoaded", () => {
     "assets/gallery_8.webp"
   ];
   let currentLightboxIndex = 0;
-  
+
   // Cấu hình URL Web App Google Apps Script để lưu phản hồi RSVP vào Google Sheet
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxz_pq6GLOALT-si4mhXVZ1DvOG4md2ktwPQxXSQhrBl5HJKsAnbjtYfK2Zv1zMc-o4/exec";
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzuk5WtXiEkpnR-91Tx9bQb4bJ8tDm-dFFI3oUjFDex_pBu1OVNh0BcyQk5TFNRfBiz/exec";
+
+  function submitToGoogleSheet(data) {
+    if (!GOOGLE_SHEET_URL) return;
+
+    const body = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => {
+      body.append(key, value == null ? "" : String(value));
+    });
+
+    const payload = new Blob([body.toString()], {
+      type: "application/x-www-form-urlencoded;charset=UTF-8"
+    });
+
+    // sendBeacon is designed for fire-and-forget POST requests and does not
+    // expose the Google Apps Script redirect as a CORS/iframe error.
+    const sent = navigator.sendBeacon(GOOGLE_SHEET_URL, payload);
+    if (!sent) {
+      fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: payload,
+        keepalive: true
+      }).catch(error => console.error("RSVP fallback failed:", error));
+    }
+  }
 
   // ----------------------------------------------------
   // 2. DOM ELEMENTS
@@ -31,27 +56,72 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnOpenText = document.getElementById("btn-open-text");
   const heroSection = document.querySelector(".hero-section");
   const heroScrollBtn = document.getElementById("hero-scroll-btn");
-  
+
+  // Personalize the invitation from the URL.
+  // Supports both ?guest=Lộc and the shorter /guest?Lộc format.
+  function getGuestNameFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const namedGuest = params.get("guest");
+    if (namedGuest) return namedGuest;
+
+    const rawSearch = window.location.search.slice(1);
+    const firstSearchPart = rawSearch.split("&")[0];
+    if (!firstSearchPart || firstSearchPart.includes("=")) return "";
+
+    try {
+      return decodeURIComponent(firstSearchPart.replace(/\+/g, " "));
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function normalizeGuestName(value) {
+    return String(value || "")
+      .normalize("NFC")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 80);
+  }
+
+  const guestName = normalizeGuestName(getGuestNameFromUrl());
+  const urlTime = normalizeGuestName(new URLSearchParams(window.location.search).get("time"));
+  const guestBox = document.getElementById("envelope-guest-box");
+  const guestNameElement = document.getElementById("envelope-guest-name");
+  const partyEventTimeElement = document.getElementById("party-event-time");
+  if (urlTime) {
+    if (partyEventTimeElement) partyEventTimeElement.textContent = urlTime;
+  }
+  if (guestName && guestBox && guestNameElement) {
+    guestNameElement.textContent = guestName;
+    guestBox.hidden = false;
+    document.body.classList.add("has-personalized-guest");
+
+    const rsvpNameInput = document.getElementById("rsvp-name");
+    if (rsvpNameInput && !rsvpNameInput.value) {
+      rsvpNameInput.value = guestName;
+    }
+  }
+
   const weddingAudio = document.getElementById("wedding-audio");
   const musicBtn = document.getElementById("music-btn");
   const scrollTopBtn = document.getElementById("scroll-top-btn");
-  
+
   // Modals
   const groomModal = document.getElementById("groom-modal");
   const brideModal = document.getElementById("bride-modal");
   const lightboxModal = document.getElementById("lightbox-modal");
-  
+
   const btnGroomGift = document.getElementById("btn-groom-gift");
   const btnBrideGift = document.getElementById("btn-bride-gift");
-  
+
   const groomModalClose = document.getElementById("groom-modal-close");
   const brideModalClose = document.getElementById("bride-modal-close");
   const lightboxClose = document.getElementById("lightbox-close");
-  
+
   const lightboxImg = document.getElementById("lightbox-img");
   const lightboxPrev = document.getElementById("lightbox-prev");
   const lightboxNext = document.getElementById("lightbox-next");
-  
+
   // Forms & Lists
   const rsvpForm = document.getElementById("rsvp-form");
   const wishForm = document.getElementById("wish-form");
@@ -64,26 +134,26 @@ document.addEventListener("DOMContentLoaded", () => {
   function createFallingLeaves() {
     const leafContainer = document.getElementById("leaf-container");
     if (!leafContainer) return;
-    
+
     // Leaf path definitions for diversity
     const leafPaths = [
       "M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z",
       "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
     ];
-    
+
     const colors = ["#bfa27a", "#e4d1b9", "#55755e", "#7ca687", "#2d4a36"];
     const leafCount = 20;
-    
+
     for (let i = 0; i < leafCount; i++) {
       const leaf = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       leaf.setAttribute("viewBox", "0 0 24 24");
       leaf.classList.add("leaf");
-      
+
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
       // Choose leaf style path
       path.setAttribute("d", leafPaths[0]);
       leaf.appendChild(path);
-      
+
       // Randomize position and animation properties
       const left = Math.random() * 100;
       const size = 12 + Math.random() * 12; // 12px to 24px
@@ -91,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const delay = Math.random() * 5;
       const sway = -30 + Math.random() * 60; // -30px to 30px
       const color = colors[Math.floor(Math.random() * colors.length)];
-      
+
       leaf.style.left = `${left}%`;
       leaf.style.width = `${size}px`;
       leaf.style.height = `${size}px`;
@@ -102,11 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
       leaf.style.animationDelay = `${delay}s`;
       leaf.style.animationTimingFunction = "ease-in-out";
       leaf.style.animationIterationCount = "infinite";
-      
+
       leafContainer.appendChild(leaf);
     }
   }
-  
+
   createFallingLeaves();
 
   // ----------------------------------------------------
@@ -116,10 +186,10 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.remove("locked");
     envelopeOverlay.classList.add("hide");
     mainInvitation.classList.add("show");
-    
+
     // Play romantic background instrumental
     playAudio();
-    
+
     // Smooth scroll to hero
     setTimeout(() => {
       heroSection.classList.add("active");
@@ -134,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 5. AUDIO MUSIC CONTROLS
   // ----------------------------------------------------
   let isPlaying = false;
-  
+
   function playAudio() {
     weddingAudio.play().then(() => {
       isPlaying = true;
@@ -145,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       musicBtn.classList.remove("playing");
     });
   }
-  
+
   function toggleAudio() {
     if (isPlaying) {
       weddingAudio.pause();
@@ -192,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7. REVEAL ELEMENTS ON SCROLL
   // ----------------------------------------------------
   const revealElements = document.querySelectorAll(".reveal");
-  
+
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -212,13 +282,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCountdown() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
-    
+
     // DOM nodes
     const daysEl = document.getElementById("countdown-days");
     const hoursEl = document.getElementById("countdown-hours");
     const minsEl = document.getElementById("countdown-minutes");
     const secsEl = document.getElementById("countdown-seconds");
-    
+
     if (distance < 0) {
       if (daysEl) daysEl.innerText = "00";
       if (hoursEl) hoursEl.innerText = "00";
@@ -226,12 +296,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (secsEl) secsEl.innerText = "00";
       return;
     }
-    
+
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
     if (daysEl) daysEl.innerText = String(days).padStart(2, "0");
     if (hoursEl) hoursEl.innerText = String(hours).padStart(2, "0");
     if (minsEl) minsEl.innerText = String(minutes).padStart(2, "0");
@@ -245,24 +315,39 @@ document.addEventListener("DOMContentLoaded", () => {
   // 9. ADD TO CALENDAR EVENT
   // ----------------------------------------------------
   const calendarButtons = document.querySelectorAll(".btn-add-calendar");
-  
+
+  function getPartyCalendarDates() {
+    const timeParts = (urlTime.match(/\d+/g) || []).slice(0, 2);
+    const hours = Math.min(Number(timeParts[0] || 13), 23);
+    const minutes = Math.min(Number(timeParts[1] || 0), 59);
+    const startMinutes = hours * 60 + minutes;
+    const endMinutes = startMinutes + 4 * 60;
+    const formatTime = (totalMinutes) => {
+      const h = Math.floor(totalMinutes / 60) % 24;
+      const m = totalMinutes % 60;
+      return `${String(h).padStart(2, "0")}${String(m).padStart(2, "0")}00`;
+    };
+
+    return `20261220T${formatTime(startMinutes)}/20261220T${formatTime(endMinutes)}`;
+  }
+
   calendarButtons.forEach(btn => {
     btn.addEventListener("click", (e) => {
       const type = e.currentTarget.getAttribute("data-event");
       let url = "";
-      
+
       if (type === "ceremony") {
         const title = encodeURIComponent("Lễ Thành Hôn: Thành Lộc & Minh Thư");
         const details = encodeURIComponent("Lễ Thành Hôn được cử hành trang trọng tại Tư gia nhà trai.\n\nKính mời quý khách đến dự và chung vui!");
         const location = encodeURIComponent("60, ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh");
-        url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20270430T090000/20270430T110000&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
+        url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261220T090000/20261220T110000&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
       } else {
         const title = encodeURIComponent("Tiệc Cưới: Thành Lộc & Minh Thư");
         const details = encodeURIComponent("Rất hân hạnh được đón tiếp quý khách đến chung vui cùng gia đình chúng tôi tại tiệc cưới ấm cúng.\n\nSự hiện diện của quý khách là niềm vinh hạnh lớn!");
-        const location = encodeURIComponent("White Palace Convention Center, 194 Hoàng Văn Thụ, Phú Nhuận, TP. Hồ Chí Minh");
-        url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20270430T173000/20270430T213000&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
+        const location = encodeURIComponent("Tư gia, 60 ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh");
+        url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${getPartyCalendarDates()}&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
       }
-      
+
       window.open(url, "_blank");
       showToast("Mở Google Lịch thành công!");
     });
@@ -272,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 10. GALLERY LIGHTBOX MODAL
   // ----------------------------------------------------
   const galleryItems = document.querySelectorAll(".gallery-item");
-  
+
   galleryItems.forEach(item => {
     item.addEventListener("click", () => {
       const index = parseInt(item.getAttribute("data-index"), 10);
@@ -337,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body.classList.add("locked");
     }
   }
-  
+
   function closeModal(modal) {
     if (modal) {
       modal.classList.remove("show");
@@ -346,9 +431,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (btnGroomGift) btnGroomGift.addEventListener("click", openGroomGift);
-  
+
   if (groomModalClose) groomModalClose.addEventListener("click", () => closeModal(groomModal));
-  
+
   if (groomModal) {
     groomModal.addEventListener("click", (e) => {
       if (e.target === groomModal) closeModal(groomModal);
@@ -361,14 +446,14 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", (e) => {
       const targetId = e.currentTarget.getAttribute("data-target");
       const accountNum = document.getElementById(targetId).innerText;
-      
+
       navigator.clipboard.writeText(accountNum).then(() => {
         const originalText = e.currentTarget.innerText;
         e.currentTarget.innerText = "Đã chép!";
         e.currentTarget.style.backgroundColor = "var(--color-gold)";
-        
+
         showToast("Đã sao chép số tài khoản!");
-        
+
         setTimeout(() => {
           e.currentTarget.innerText = originalText;
           e.currentTarget.style.backgroundColor = "";
@@ -385,14 +470,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (rsvpForm) {
     rsvpForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      
-      const name = document.getElementById("rsvp-name").value;
+
+      const nameInput = document.getElementById("rsvp-name");
+      const name = nameInput.value.trim() || guestName;
       const attendance = document.getElementById("rsvp-attendance").value;
       const guests = document.getElementById("rsvp-guests").value;
       const bus = document.querySelector('input[name="rsvp-bus"]:checked').value;
       const vegetarian = document.querySelector('input[name="rsvp-diet"]:checked').value;
       const note = document.getElementById("rsvp-note").value;
-      
+
       const rsvpData = {
         name,
         attendance,
@@ -402,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
         note,
         timestamp: new Date().toISOString()
       };
-      
+
       // Store in localStorage
       try {
         let rsvps = JSON.parse(localStorage.getItem("wedding_rsvps")) || [];
@@ -412,31 +498,16 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Storage write failed for RSVP", err);
         inMemoryRsvps.push(rsvpData);
       }
-      
+
       // Send to Google Sheet if configured
       if (GOOGLE_SHEET_URL) {
-        const formData = new URLSearchParams();
-        formData.append("type", "rsvp");
-        for (const key in rsvpData) {
-          formData.append(key, rsvpData[key]);
-        }
-        
-        fetch(GOOGLE_SHEET_URL, {
-          method: "POST",
-          mode: "cors",
-          credentials: "omit",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: formData
-        })
-        .then(() => console.log("RSVP sent to Google Sheet successfully"))
-        .catch(err => console.error("Error sending RSVP to Google Sheet:", err));
+        submitToGoogleSheet({ type: "rsvp", ...rsvpData });
+        console.log("RSVP submitted to Google Sheet");
       }
-      
+
       // Feedback Toast
       showToast("Cảm ơn bạn! Thông tin xác nhận đã được gửi thành công.");
-      
+
       // Reset form
       rsvpForm.reset();
     });
@@ -481,14 +552,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderWishes() {
     const wishes = wishesData;
-    
+
     if (!wishesList) return;
-    
+
     if (wishes.length === 0) {
       wishesList.innerHTML = `<div class="guestbook-empty">Chưa có lời chúc nào. Hãy là người đầu tiên!</div>`;
       return;
     }
-    
+
     // Tạo danh sách lời chúc hiển thị
     wishesList.innerHTML = wishes
       .map(w => `
@@ -510,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderWishes();
       return;
     }
-    
+
     try {
       const response = await fetch(GOOGLE_SHEET_URL, {
         method: "GET",
@@ -534,22 +605,22 @@ document.addEventListener("DOMContentLoaded", () => {
   if (wishForm) {
     wishForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      
+
       const author = document.getElementById("wish-author").value.trim();
       const message = document.getElementById("wish-message").value.trim();
-      
+
       if (!author || !message) return;
-      
+
       const now = new Date();
       const dateStr = `${String(now.getDate()).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(2, "0")}/${now.getFullYear()}`;
-      
+
       const newWish = {
         author,
         message,
         date: dateStr,
         timestamp: now.toISOString()
       };
-      
+
       // Lưu tạm thời vào local storage
       let localWishes = getWishes();
       localWishes.unshift(newWish);
@@ -559,12 +630,12 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Storage write failed", err);
         inMemoryWishes = localWishes;
       }
-      
+
       // Cập nhật giao diện lập tức (đưa lời chúc mới lên đầu danh sách)
       wishesData.unshift(newWish);
       renderWishes();
       showToast("Lời chúc của bạn đã được gửi!");
-      
+
       // Gửi lời chúc lên Google Sheet
       if (GOOGLE_SHEET_URL) {
         const formData = new URLSearchParams();
@@ -573,7 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("message", message);
         formData.append("date", dateStr);
         formData.append("timestamp", newWish.timestamp);
-        
+
         fetch(GOOGLE_SHEET_URL, {
           method: "POST",
           mode: "cors",
@@ -583,14 +654,14 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           body: formData
         })
-        .then(() => {
-          console.log("Wish sent to Google Sheet successfully");
-          // Tải lại lời chúc từ server sau 1.5 giây để đồng bộ hóa hoàn toàn
-          setTimeout(fetchWishes, 1500);
-        })
-        .catch(err => console.error("Error sending wish to Google Sheet:", err));
+          .then(() => {
+            console.log("Wish sent to Google Sheet successfully");
+            // Tải lại lời chúc từ server sau 1.5 giây để đồng bộ hóa hoàn toàn
+            setTimeout(fetchWishes, 1500);
+          })
+          .catch(err => console.error("Error sending wish to Google Sheet:", err));
       }
-      
+
       wishForm.reset();
     });
   }
@@ -636,19 +707,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // ----------------------------------------------------
   function showToast(message) {
     if (!toastContainer) return;
-    
+
     const toast = document.createElement("div");
     toast.className = "toast";
-    
+
     toast.innerHTML = `
       <svg class="toast-success-icon" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
       </svg>
       <span>${message}</span>
     `;
-    
+
     toastContainer.appendChild(toast);
-    
+
     // Auto dismiss
     setTimeout(() => {
       toast.classList.add("hide");
