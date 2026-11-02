@@ -3,7 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ----------------------------------------------------
   // 1. STATE VARIABLES & CONFIG
   // ----------------------------------------------------
-  const weddingDate = new Date("2026-12-20T09:00:00+07:00").getTime();
+  const isVuQuy =
+    document.body.dataset.page === "vuquy" ||
+    document.body.classList.contains("page-vuquy") ||
+    window.location.pathname.toLowerCase().includes("vuquy") ||
+    window.location.href.toLowerCase().includes("vuquy");
+
+  const weddingDate = isVuQuy
+    ? new Date("2026-12-19T10:00:00+07:00").getTime()
+    : new Date("2026-12-20T09:00:00+07:00").getTime();
 
   // Gallery images list for lightbox
   const galleryImages = [
@@ -135,13 +143,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const leafContainer = document.getElementById("leaf-container");
     if (!leafContainer) return;
 
-    // Leaf path definitions for diversity
-    const leafPaths = [
+    // Leaf / petal path definitions for diversity
+    const leafPaths = isVuQuy ? [
+      "M12 2C9.5 5 7 9 7 13c0 3.3 2.2 6 5 6s5-2.7 5-6c0-4-2.5-8-5-11z",
+      "M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"
+    ] : [
       "M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z",
       "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
     ];
 
-    const colors = ["#bfa27a", "#e4d1b9", "#55755e", "#7ca687", "#2d4a36"];
+    const colors = isVuQuy
+      ? ["#f5b8c8", "#fad3dc", "#e28ca4", "#c96582", "#d98ea2", "#c49673"]
+      : ["#bfa27a", "#e4d1b9", "#55755e", "#7ca687", "#2d4a36"];
     const leafCount = 20;
 
     for (let i = 0; i < leafCount; i++) {
@@ -317,6 +330,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const calendarButtons = document.querySelectorAll(".btn-add-calendar");
 
   function getPartyCalendarDates() {
+    if (isVuQuy) {
+      const timeParts = (urlTime.match(/\d+/g) || []).slice(0, 2);
+      const hours = Math.min(Number(timeParts[0] || 10), 23);
+      const minutes = Math.min(Number(timeParts[1] || 0), 59);
+      const startMinutes = hours * 60 + minutes;
+      const endMinutes = startMinutes + 4 * 60;
+      const formatTime = (totalMinutes) => {
+        const h = Math.floor(totalMinutes / 60) % 24;
+        const m = totalMinutes % 60;
+        return `${String(h).padStart(2, "0")}${String(m).padStart(2, "0")}00`;
+      };
+
+      return `20261219T${formatTime(startMinutes)}/20261219T${formatTime(endMinutes)}`;
+    }
+
     const timeParts = (urlTime.match(/\d+/g) || []).slice(0, 2);
     const hours = Math.min(Number(timeParts[0] || 13), 23);
     const minutes = Math.min(Number(timeParts[1] || 0), 59);
@@ -342,9 +370,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const location = encodeURIComponent("60, ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh");
         url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261220T090000/20261220T110000&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
       } else {
-        const title = encodeURIComponent("Tiệc Cưới: Thành Lộc & Minh Thư");
-        const details = encodeURIComponent("Rất hân hạnh được đón tiếp quý khách đến chung vui cùng gia đình chúng tôi tại tiệc cưới ấm cúng.\n\nSự hiện diện của quý khách là niềm vinh hạnh lớn!");
-        const location = encodeURIComponent("Tư gia, 60 ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh");
+        const title = encodeURIComponent(isVuQuy ? "Tiệc Vu Quy: Thành Lộc & Minh Thư" : "Tiệc Cưới: Thành Lộc & Minh Thư");
+        const details = encodeURIComponent(isVuQuy
+          ? "Rất hân hạnh được đón tiếp quý khách đến chung vui cùng gia đình chúng tôi tại Tiệc Vu Quy ấm cúng tại tư gia nhà gái.\n\nSự hiện diện của quý khách là niềm vinh hạnh lớn!"
+          : "Rất hân hạnh được đón tiếp quý khách đến chung vui cùng gia đình chúng tôi tại tiệc cưới ấm cúng.\n\nSự hiện diện của quý khách là niềm vinh hạnh lớn!");
+        const location = encodeURIComponent(isVuQuy ? "Tại tư gia nhà gái: ấp 6, xã Cần Đước, tỉnh Tây Ninh" : "Tư gia, 60 ấp 7, xã Mỹ Lệ, tỉnh Tây Ninh");
         url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${getPartyCalendarDates()}&details=${details}&location=${location}&ctz=Asia/Ho_Chi_Minh`;
       }
 
@@ -367,7 +397,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openLightbox(index) {
     currentLightboxIndex = index;
-    lightboxImg.src = galleryImages[index];
+    const imgEl = galleryItems[index] ? galleryItems[index].querySelector("img") : null;
+    lightboxImg.src = imgEl && imgEl.src ? imgEl.src : galleryImages[index];
     lightboxModal.classList.add("show");
     body.classList.add("locked");
   }
@@ -388,12 +419,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showPrevImage() {
     currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentLightboxIndex];
+    const imgEl = galleryItems[currentLightboxIndex] ? galleryItems[currentLightboxIndex].querySelector("img") : null;
+    lightboxImg.src = imgEl && imgEl.src ? imgEl.src : galleryImages[currentLightboxIndex];
   }
 
   function showNextImage() {
     currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length;
-    lightboxImg.src = galleryImages[currentLightboxIndex];
+    const imgEl = galleryItems[currentLightboxIndex] ? galleryItems[currentLightboxIndex].querySelector("img") : null;
+    lightboxImg.src = imgEl && imgEl.src ? imgEl.src : galleryImages[currentLightboxIndex];
   }
 
   if (lightboxPrev) lightboxPrev.addEventListener("click", (e) => {
@@ -472,7 +505,10 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const nameInput = document.getElementById("rsvp-name");
-      const name = nameInput.value.trim() || guestName;
+      let name = (nameInput.value.trim() || guestName).trim();
+      if (isVuQuy && !name.toLowerCase().startsWith("[vuquy]")) {
+        name = `[vuquy] ${name}`;
+      }
       const attendance = document.getElementById("rsvp-attendance").value;
       const guests = document.getElementById("rsvp-guests").value;
       const bus = document.querySelector('input[name="rsvp-bus"]:checked').value;
@@ -501,7 +537,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Send to Google Sheet if configured
       if (GOOGLE_SHEET_URL) {
-        submitToGoogleSheet({ type: "rsvp", ...rsvpData });
+        submitToGoogleSheet({
+          type: "rsvp",
+          event_type: isVuQuy ? "vuquy" : "thanhhon",
+          ...rsvpData
+        });
         console.log("RSVP submitted to Google Sheet");
       }
 
