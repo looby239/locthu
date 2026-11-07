@@ -1367,22 +1367,22 @@
         <div class="playlist-tabs" role="tablist">
           <button class="tab-btn active" data-tab="welcome">
             🌸 Đón Khách
-            <span class="badge-count" id="count-welcome">4</span>
+            <span class="badge-count" id="count-welcome">10</span>
           </button>
 
           <button class="tab-btn" data-tab="ceremony">
             💍 Làm Lễ
-            <span class="badge-count" id="count-ceremony">5</span>
+            <span class="badge-count" id="count-ceremony">0</span>
           </button>
 
           <button class="tab-btn" data-tab="dinner">
             🥂 Dùng Bữa
-            <span class="badge-count" id="count-dinner">4</span>
+            <span class="badge-count" id="count-dinner">0</span>
           </button>
 
           <button class="tab-btn" data-tab="party">
             🎉 Tiễn Khách &amp; Giao Lưu
-            <span class="badge-count" id="count-party">3</span>
+            <span class="badge-count" id="count-party">0</span>
           </button>
 
           <button class="tab-btn" data-tab="custom">
@@ -1502,36 +1502,83 @@
         tracks: [
           {
             id: "wel-1",
-            title: "Ánh Nắng Của Anh (Piano Instrumental)",
-            artist: "Acoustic Piano Wedding",
-            context: "Nhạc nền đón khách sảnh chính",
-            duration: "04:12",
-            src: "../assets/music.mp3"
+            title: "Bài Này Không Để Đi Diễn",
+            artist: "Anh Tú Atus",
+            context: "Nhạc đón khách sảnh tiệc",
+            duration: "02:59",
+            src: encodeURI("../assets/nhac/Don-khach/Bài Này Không Để Đi Diễn.mp3")
           },
           {
             id: "wel-2",
-            title: "Canon In D (Violin & Piano)",
-            artist: "Johann Pachelbel",
-            context: "Nhạc giao hưởng êm dịu, đón khách quý",
-            duration: "03:45",
-            src: "https://ia800501.us.archive.org/30/items/CanonInD_630/CanoninD.mp3",
-            fallback: "../assets/music.mp3"
+            title: "Em Đồng Ý (I Do)",
+            artist: "Đức Phúc x 911",
+            context: "Nhạc đón khách lãng mạn",
+            duration: "03:23",
+            src: encodeURI("../assets/nhac/Don-khach/Em Đồng Ý (I Do).mp3")
           },
           {
             id: "wel-3",
-            title: "A Thousand Years (Acoustic Guitar)",
-            artist: "Wedding Acoustic",
-            context: "Giai điệu tình yêu nhẹ nhàng, ấm áp",
-            duration: "04:05",
-            src: "../assets/music.mp3"
+            title: "Gói Con Tim Làm Quà",
+            artist: "Nguyễn Hùng, Mounter",
+            context: "Nhạc đón khách nhẹ nhàng",
+            duration: "04:04",
+            src: encodeURI("../assets/nhac/Don-khach/Gói Con Tim Làm Quà (Bò Sữa Bay Original Soundtrack).mp3")
           },
           {
             id: "wel-4",
-            title: "Until I Found You (Gentle Instrumental)",
-            artist: "Stephen Sanchez (Piano ver)",
-            context: "Không gian trang nhã, thư thái",
-            duration: "03:15",
-            src: "../assets/music.mp3"
+            title: "Hơn Cả Yêu",
+            artist: "ERIK",
+            context: "Giai điệu tình yêu ấm áp",
+            duration: "04:11",
+            src: encodeURI("../assets/nhac/Don-khach/Hơn Cả Yêu (Music Home Mùa 2).mp3")
+          },
+          {
+            id: "wel-5",
+            title: "Một Ngày Hay Trăm Năm",
+            artist: "Bùi Lan Hương, Minh Hằng, Phạm Quỳnh Anh, Dương Hoàng Yến",
+            context: "Nhạc đón khách du dương",
+            duration: "05:29",
+            src: encodeURI("../assets/nhac/Don-khach/MỘT NGÀY HAY TRĂM NĂM.mp3")
+          },
+          {
+            id: "wel-6",
+            title: "Một Đời",
+            artist: "14 Casper, Bon Nghiêm",
+            context: "Nhạc tình cảm, sâu lắng",
+            duration: "05:28",
+            src: encodeURI("../assets/nhac/Don-khach/một đời.mp3")
+          },
+          {
+            id: "wel-7",
+            title: "Ngày Đầu Tiên",
+            artist: "Đức Phúc",
+            context: "Giai điệu vui tươi, hạnh phúc",
+            duration: "03:29",
+            src: encodeURI("../assets/nhac/Don-khach/Ngày Đầu Tiên.mp3")
+          },
+          {
+            id: "wel-8",
+            title: "Thế Giới Của Anh",
+            artist: "Dương Domic, WEAN, buitruonglinh",
+            context: "Acoustic nhẹ nhàng đón khách",
+            duration: "04:18",
+            src: encodeURI("../assets/nhac/Don-khach/THẾ GIỚI CỦA ANH.mp3")
+          },
+          {
+            id: "wel-9",
+            title: "Váy Cưới",
+            artist: "ERIK, Kai Đinh",
+            context: "Ngọt ngào ngày tân hôn",
+            duration: "03:44",
+            src: encodeURI("../assets/nhac/Don-khach/Váy Cưới.mp3")
+          },
+          {
+            id: "wel-10",
+            title: "Đừng Làm Trái Tim Anh Đau",
+            artist: "Sơn Tùng M-TP",
+            context: "Giai điệu tình yêu rộn ràng",
+            duration: "04:39",
+            src: encodeURI("../assets/nhac/Don-khach/Đừng Làm Trái Tim Anh Đau.mp3")
           }
         ]
       },
@@ -1539,119 +1586,19 @@
       ceremony: {
         title: "Playlist Làm Lễ & Khai Mạc (Ceremony)",
         desc: "Các khoảnh khắc trọng đại nhất: MC giới thiệu, Cô Dâu bước vào, Cắt bánh, Nâng ly champagne",
-        tracks: [
-          {
-            id: "cer-1",
-            title: "Beautiful In White (Entrance Melody)",
-            artist: "Shane Filan (Piano & Strings)",
-            context: "Thời khắc Cô Dâu & Chú Rể bước vào lễ đường",
-            duration: "03:52",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "cer-2",
-            title: "Wedding March (Hành Khúc Hôn Lễ)",
-            artist: "Felix Mendelssohn",
-            context: "Nhạc trang nghiêm đón hai bên gia đình",
-            duration: "02:40",
-            src: "https://ia800108.us.archive.org/29/items/MendelssohnWeddingMarch/Mendelssohn-WeddingMarch.mp3",
-            fallback: "../assets/music.mp3"
-          },
-          {
-            id: "cer-3",
-            title: "I Do (Acoustic Romantic)",
-            artist: "911 Band (Cover Strings)",
-            context: "Lúc trao nhẫn cưới & Lời hẹn ước thề nguyền",
-            duration: "03:28",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "cer-4",
-            title: "Sugar & Celebration (Champagne Toast)",
-            artist: "Pop String Orchestra",
-            context: "Cắt bánh cưới & Rót tháp rượu champagne",
-            duration: "03:55",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "cer-5",
-            title: "Can't Take My Eyes Off You (Cheers & Toast)",
-            artist: "Wedding Brass & Piano",
-            context: "Toàn thể hội trường nâng ly chúc mừng!",
-            duration: "03:30",
-            src: "../assets/music.mp3"
-          }
-        ]
+        tracks: []
       },
 
       dinner: {
         title: "Playlist Dùng Bữa / Khai Tiệc (Dinner Banquet)",
         desc: "Âm hưởng du dương vừa vặn, không quá ồn ào để quan khách vừa thưởng thức món ăn vừa trò chuyện",
-        tracks: [
-          {
-            id: "din-1",
-            title: "Cưới Nhau Đi (Yes I Do - Instrumental)",
-            artist: "Acoustic Wedding",
-            context: "Bắt đầu khai tiệc chúc mừng",
-            duration: "03:40",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "din-2",
-            title: "Ngày Đầu Tiên (Guitar & Saxophone)",
-            artist: "Romantic Lounge",
-            context: "Giai điệu vui tươi, tình cảm",
-            duration: "03:25",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "din-3",
-            title: "Perfect (Ed Sheeran Violin & Piano)",
-            artist: "Duet Instrumental",
-            context: "Nhạc nền lãng mạn trong tiệc tối",
-            duration: "04:20",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "din-4",
-            title: "Hơn Cả Yêu (Piano & Cello)",
-            artist: "Wedding Studio",
-            context: "Không khí ấm áp bên gia đình bạn bè",
-            duration: "03:50",
-            src: "../assets/music.mp3"
-          }
-        ]
+        tracks: []
       },
 
       party: {
         title: "Playlist Tiễn Khách & Giao Lưu (Farewell)",
         desc: "Giai điệu rộn ràng, chụp hình kỷ niệm cùng bạn bè và tiễn khách ấm áp lúc kết thúc tiệc",
-        tracks: [
-          {
-            id: "pty-1",
-            title: "Một Nhà (Acoustic Happy Version)",
-            artist: "Da LAB (Acoustic)",
-            context: "Giao lưu vui vẻ, chụp hình kỷ niệm bàn tiệc",
-            duration: "03:15",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "pty-2",
-            title: "Yêu Là Cưới (Upbeat Acoustic)",
-            artist: "Wedding Band",
-            context: "Rộn rã tiếng cười, chào tạm biệt quý khách",
-            duration: "03:00",
-            src: "../assets/music.mp3"
-          },
-          {
-            id: "pty-3",
-            title: "Marry You (Acoustic Ukulele & Guitar)",
-            artist: "Bruno Mars (Wedding Instrumental)",
-            context: "Tiễn khách ra về ngập tràn niềm vui",
-            duration: "03:48",
-            src: "../assets/music.mp3"
-          }
-        ]
+        tracks: []
       },
 
       custom: {
@@ -1770,7 +1717,14 @@
 
       // Track loaded metadata
       audio.addEventListener("loadedmetadata", () => {
-        totalDurationEl.textContent = formatTime(audio.duration);
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          totalDurationEl.textContent = formatTime(audio.duration);
+          if (activeTrack) {
+            activeTrack.duration = formatTime(audio.duration);
+            const activeDurationEl = document.querySelector(`.track-row[data-id="${activeTrack.id}"] .track-duration`);
+            if (activeDurationEl) activeDurationEl.textContent = activeTrack.duration;
+          }
+        }
       });
 
       // Track finished (ON ENDED)
