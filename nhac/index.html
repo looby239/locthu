@@ -1164,6 +1164,421 @@
     #audio-file-input {
       display: none;
     }
+
+    .track-mobile-dur {
+      display: none;
+    }
+
+    /* MINI PLAYER ON MOBILE (Sticky Bottom Bar) */
+    .mobile-mini-player {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(15, 23, 17, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--accent-gold);
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      padding: 6px 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transform: translateY(120%);
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .mobile-mini-player.visible {
+      transform: translateY(0);
+    }
+
+    .mini-player-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .mini-player-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(207, 168, 110, 0.3);
+      position: relative;
+    }
+
+    .mini-player-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mini-player-info {
+      overflow: hidden;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .mini-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-gold-light);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mini-artist {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mini-player-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mini-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mini-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    .mini-btn-play {
+      background: linear-gradient(135deg, var(--accent-gold), #966f35);
+      color: #121a15;
+      border: none;
+      box-shadow: 0 2px 10px rgba(207, 168, 110, 0.4);
+    }
+
+    .mini-btn-play svg {
+      fill: #121a15;
+      width: 17px;
+      height: 17px;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+
+    /* Tablet and Small Laptops (<= 1024px) */
+    @media (max-width: 1024px) {
+      .app-container {
+        grid-template-columns: 1fr;
+        padding: 20px 16px 100px;
+        gap: 22px;
+      }
+      .master-deck {
+        position: static;
+      }
+    }
+
+    /* Mobile Phones and Tablets (<= 768px) */
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 10px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .brand-title {
+        justify-content: center;
+      }
+      .brand-text h1 {
+        font-size: 0.95rem;
+      }
+      .nav-actions {
+        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding-bottom: 2px;
+      }
+      .btn-nav {
+        padding: 6px 11px;
+        font-size: 0.74rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .app-container {
+        padding: 14px 10px 90px;
+        gap: 16px;
+      }
+
+      /* Master Deck Compact for Mobile */
+      .master-deck {
+        padding: 20px 16px;
+        border-radius: var(--radius-md);
+      }
+      .vinyl-stage {
+        margin-bottom: 14px;
+      }
+      .vinyl-disc {
+        width: 140px;
+        height: 140px;
+        border-width: 3px;
+      }
+      .vinyl-disc::before {
+        width: 95px;
+        height: 95px;
+      }
+      .vinyl-label {
+        width: 52px;
+        height: 52px;
+      }
+      .waveform-visualizer {
+        height: 24px;
+        margin-bottom: 12px;
+        padding: 0 10px;
+      }
+      .track-badge {
+        font-size: 0.68rem;
+        padding: 3px 10px;
+      }
+      .track-title {
+        font-size: 1.05rem;
+      }
+      .track-artist {
+        font-size: 0.8rem;
+      }
+      .track-context {
+        font-size: 0.74rem;
+        padding: 3px 8px;
+      }
+      .seek-container {
+        margin-bottom: 16px;
+      }
+      .main-controls {
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .btn-ctrl {
+        width: 40px;
+        height: 40px;
+      }
+      .btn-ctrl svg {
+        width: 16px;
+        height: 16px;
+      }
+      .btn-play-pause {
+        width: 56px;
+        height: 56px;
+      }
+      .btn-play-pause svg {
+        width: 22px;
+        height: 22px;
+      }
+      .repeat-status-banner {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+      }
+      .volume-deck {
+        padding: 12px;
+      }
+      .vol-presets {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+      .btn-vol-preset {
+        padding: 6px 1px;
+        font-size: 0.64rem;
+        border-radius: 4px;
+      }
+      .fade-actions {
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .btn-fade {
+        padding: 8px 6px;
+        font-size: 0.72rem;
+      }
+
+      /* Playlist Deck for Mobile */
+      .playlist-tabs-wrapper {
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+      }
+      .tabs-header {
+        margin-bottom: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .tabs-title {
+        font-size: 0.95rem;
+      }
+      #btn-upload-trigger {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 12px;
+      }
+      .playlist-tabs {
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+      }
+      .tab-btn {
+        padding: 8px 13px;
+        font-size: 0.78rem;
+        flex-shrink: 0;
+      }
+      .playlist-action-bar {
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        border-radius: var(--radius-md);
+      }
+      .playlist-info h2 {
+        font-size: 1.02rem;
+      }
+      .playlist-info p {
+        font-size: 0.76rem;
+      }
+      .playlist-btns {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+      }
+      .playlist-btns .btn-action {
+        flex: 1;
+        justify-content: center;
+        padding: 9px 8px;
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+      .search-box input {
+        padding: 9px 12px 9px 34px;
+        font-size: 0.8rem;
+      }
+      .tracks-container {
+        padding: 10px 8px;
+        border-radius: var(--radius-md);
+      }
+      .track-row {
+        grid-template-columns: 28px 1fr auto;
+        gap: 10px;
+        padding: 10px 8px;
+      }
+      .track-num {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+      }
+      .track-name {
+        font-size: 0.88rem;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.35;
+      }
+      .track-sub {
+        font-size: 0.72rem;
+        gap: 4px;
+      }
+      .track-mobile-dur {
+        display: inline !important;
+      }
+      .track-duration {
+        display: none !important;
+      }
+      .track-row-actions {
+        gap: 6px;
+      }
+      .btn-mini-play {
+        width: 34px;
+        height: 34px;
+      }
+      .drop-banner {
+        padding: 16px 12px;
+        margin-top: 10px;
+      }
+      .drop-banner svg {
+        width: 26px;
+        height: 26px;
+      }
+      .drop-banner h4 {
+        font-size: 0.88rem;
+      }
+      .drop-banner p {
+        font-size: 0.72rem;
+      }
+      .toast-msg {
+        left: 12px;
+        right: 12px;
+        bottom: 74px;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.78rem;
+        padding: 10px 14px;
+      }
+      .modal-card {
+        padding: 20px 16px;
+        border-radius: var(--radius-md);
+        max-width: 92vw;
+      }
+      .modal-card h3 {
+        font-size: 1.05rem;
+      }
+      .shortcut-row {
+        font-size: 0.78rem;
+      }
+      .mobile-mini-player {
+        display: flex;
+      }
+    }
+
+    /* Small Mobile Phones (<= 390px) */
+    @media (max-width: 390px) {
+      .brand-text h1 {
+        font-size: 0.88rem;
+      }
+      .main-controls {
+        gap: 8px;
+      }
+      .btn-ctrl {
+        width: 36px;
+        height: 36px;
+      }
+      .btn-play-pause {
+        width: 50px;
+        height: 50px;
+      }
+      .btn-fade {
+        font-size: 0.68rem;
+        padding: 7px 4px;
+      }
+    }
   </style>
 </head>
 
@@ -1441,6 +1856,31 @@
 
   </main>
 
+  <!-- MOBILE STICKY BOTTOM PLAYER -->
+  <aside id="mobile-mini-player" class="mobile-mini-player" aria-label="Điều khiển nhạc nhanh trên điện thoại">
+    <div class="mini-player-track" id="mini-player-track-info" title="Chạm để mở bảng điều khiển chi tiết">
+      <div class="mini-player-thumb">
+        <img src="../assets/gallery_3.webp" alt="Thumb" id="mini-thumb-img">
+      </div>
+      <div class="mini-player-info">
+        <div id="mini-title" class="mini-title">Đang phát...</div>
+        <div id="mini-artist" class="mini-artist">Lễ cưới Lộc &amp; Thư</div>
+      </div>
+    </div>
+    <div class="mini-player-controls">
+      <button id="mini-btn-prev" class="mini-btn" title="Bài trước">
+        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button id="mini-btn-play" class="mini-btn mini-btn-play" title="Phát/Dừng">
+        <svg id="mini-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="mini-pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button id="mini-btn-next" class="mini-btn" title="Bài tiếp">
+        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+    </div>
+  </aside>
+
   <!-- HIDDEN AUDIO & FILE INPUT -->
   <audio id="audio-engine" preload="auto"></audio>
   <input type="file" id="audio-file-input" accept="audio/*" multiple>
@@ -1670,6 +2110,17 @@
     const shortcutsModal = document.getElementById("shortcuts-modal");
     const modalCloseBtn = document.getElementById("modal-close-btn");
 
+    // Mini Player DOM for Mobile
+    const miniPlayer = document.getElementById("mobile-mini-player");
+    const miniTrackInfo = document.getElementById("mini-player-track-info");
+    const miniTitle = document.getElementById("mini-title");
+    const miniArtist = document.getElementById("mini-artist");
+    const miniBtnPlay = document.getElementById("mini-btn-play");
+    const miniPlayIcon = document.getElementById("mini-play-icon");
+    const miniPauseIcon = document.getElementById("mini-pause-icon");
+    const miniBtnPrev = document.getElementById("mini-btn-prev");
+    const miniBtnNext = document.getElementById("mini-btn-next");
+
     // --- INITIALIZATION ---
     function init() {
       // Load saved preferences if any
@@ -1780,6 +2231,10 @@
       playerContext.textContent = track.context ? `💡 Dịp: ${track.context}` : `💡 Playlist: ${PLAYLISTS[playlistKey].title}`;
       playerBadge.textContent = PLAYLISTS[playlistKey].title.split(" (")[0];
 
+      // Update mobile mini player
+      if (miniTitle) miniTitle.textContent = track.title;
+      if (miniArtist) miniArtist.textContent = track.artist || "Acoustic Wedding";
+
       // Update audio source
       audio.src = track.src;
       seekSlider.value = 0;
@@ -1801,6 +2256,8 @@
         btnPlayPause.classList.add("playing");
         playIcon.style.display = "none";
         pauseIcon.style.display = "block";
+        if (miniPlayIcon) miniPlayIcon.style.display = "none";
+        if (miniPauseIcon) miniPauseIcon.style.display = "block";
         vinylDisc.classList.add("playing");
         eqVisualizer.classList.add("playing");
       }).catch(err => {
@@ -1814,6 +2271,8 @@
       btnPlayPause.classList.remove("playing");
       playIcon.style.display = "block";
       pauseIcon.style.display = "none";
+      if (miniPlayIcon) miniPlayIcon.style.display = "block";
+      if (miniPauseIcon) miniPauseIcon.style.display = "none";
       vinylDisc.classList.remove("playing");
       eqVisualizer.classList.remove("playing");
     }
@@ -2104,6 +2563,29 @@
         if (e.target === shortcutsModal) shortcutsModal.classList.remove("open");
       });
 
+      // Mobile Mini Player Controls
+      if (miniBtnPlay) miniBtnPlay.addEventListener("click", togglePlayPause);
+      if (miniBtnPrev) miniBtnPrev.addEventListener("click", playPrevTrack);
+      if (miniBtnNext) miniBtnNext.addEventListener("click", () => playNextTrack(true));
+      if (miniTrackInfo) {
+        miniTrackInfo.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      // Toggle Mobile Mini Player based on scroll
+      const masterDeckEl = document.querySelector(".master-deck");
+      window.addEventListener("scroll", () => {
+        if (window.innerWidth <= 850 && masterDeckEl && miniPlayer) {
+          const rect = masterDeckEl.getBoundingClientRect();
+          if (rect.bottom < 150) {
+            miniPlayer.classList.add("visible");
+          } else {
+            miniPlayer.classList.remove("visible");
+          }
+        }
+      }, { passive: true });
+
       // Keyboard Shortcuts
       window.addEventListener("keydown", handleKeyShortcuts);
     }
@@ -2292,6 +2774,7 @@
             </div>
             <div class="track-sub">
               <span>${escapeHtml(track.artist || "Wedding Audio")}</span>
+              <span class="track-mobile-dur" style="color: var(--accent-gold); font-family: monospace;">• ${track.duration || "--:--"}</span>
               ${track.context ? `<span class="track-timing-tag">💡 ${escapeHtml(track.context)}</span>` : ""}
             </div>
           </div>
